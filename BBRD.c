@@ -4,7 +4,6 @@
 #include <time.h>
 #include <sys/time.h>
 
-
 #define MAX_CAP 500
 #define NUM_ELE 1000
 
