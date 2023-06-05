@@ -1,4 +1,4 @@
-# Knapsack Problem
+# Unbounded Knapsack Problem
  This is my solutions for the unbounded knapsack problem.
  
  The BB.c is a solution using only Branch and Bound.
