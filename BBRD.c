@@ -176,9 +176,9 @@ int main(){
 
     printf("tempo: %f segundos\n", tempo);
 
-    /*FILE *arq = fopen("BBRD.txt", "w");
+    FILE *arq = fopen("BBRD.txt", "w");
     fprintf(arq,"%f\n",tempo);
-    fclose(arq);*/
+    fclose(arq);
 
     free(vet);
     free(Better);
