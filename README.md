@@ -2,7 +2,7 @@
  
   <p><i>Peço que quem se basear em meus códigos me coloque como coautor.</i><p>
   
- <p>This is my solutions for the unbounded knapsack problem.</p>
+ <p>Those are my solutions for the unbounded knapsack problem.</p>
  <p>The <b>gerador.c</b> will beget size and priority of the objects.</p>
  <p>The objects are kept in <b>elementos.txt</b>.</p>
  <p>The <b>BB.c</b> is a solution using only Branch and Bound.</p>
