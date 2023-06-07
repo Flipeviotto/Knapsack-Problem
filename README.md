@@ -1,6 +1,6 @@
 # Unbounded Knapsack Problem
  
-  <p><i>Peço que quem se basear em meus códigos me coloque como co-autor.</i><p>
+  <p><i>Peço que quem se basear em meus códigos me coloque como coautor.</i><p>
   
  <p>This is my solutions for the unbounded knapsack problem.</p>
  <p>The <b>gerador.c</b> will beget size and priority of the objects.</p>
