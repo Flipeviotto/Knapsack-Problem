@@ -160,9 +160,9 @@ int main(){
     double tempo = (double) micro/1000000;
     printf("tempo: %f segundos\n", tempo);
 
-    /*FILE *arq = fopen("BB.txt", "w");
+    FILE *arq = fopen("BB.txt", "w");
     fprintf(arq,"%f\n",tempo);
-    fclose(arq);*/
+    fclose(arq);
 
     free(Better);
     free(vet);
