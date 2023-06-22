@@ -5,7 +5,7 @@
 #include <sys/time.h>
 
 #define MAX_CAP 500
-#define NUM_ELE 1000
+#define NUM_ELE 100
 
 struct Itens{
     int ItemTam;
@@ -25,7 +25,6 @@ void IniciaVetor(struct Itens * vet){
         fscanf(arq,"%d",&(vet+i)->ItemTam);
         fscanf(arq,"%d",&(vet+i)->ItemPri);
         (vet+i)->ItemQuant = 0;
-        (vet+i)->ItemFat =(long double) (vet+i)->ItemPri/(vet+i)->ItemTam;
     }
     fclose(arq);
 }
@@ -35,6 +34,11 @@ void Escreve(struct Itens * vet){
         if((vet+i)->ItemQuant>0)
             printf("\ntam.%d   pre.%d   fat.%Lf   qtd.%d\n",(vet+i)->ItemTam,(vet+i)->ItemPri, (vet+i)->ItemFat, (vet+i)->ItemQuant);
     }
+}
+
+void CalculaFator(struct Itens * vet){
+    for(int i=0;i<NUM_ELE;i++)
+        (vet+i)->ItemFat =(long double) (vet+i)->ItemPri/(vet+i)->ItemTam;
 }
 
 void OrdenaFator(struct Itens * vet){
@@ -104,19 +108,21 @@ void EliminaDominado(struct Itens * vet){
 
 
 int main(){
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+
     struct dados inf;
     inf.espaco = MAX_CAP;
-
     struct Itens * vet = malloc(NUM_ELE * sizeof(struct Itens));
     struct Itens * Better = malloc(NUM_ELE * sizeof (struct Itens));
     if(vet==NULL || Better==NULL){
         printf("deu erro na alocacao");
         exit(1);
     }
-    struct timeval start, end;
-    gettimeofday(&start, NULL);
 
     IniciaVetor(vet);
+
+    CalculaFator(vet);
     OrdenaFator(vet);
     EncherMochila(vet,&inf.espaco,0);
     CopyToBetter(vet,Better);
@@ -147,8 +153,7 @@ int main(){
 
             int soma;
             SomaPrioridade(vet,&soma);
-            long double f;
-            f = (long double) soma - (vet+posicao)->ItemPri + (vet+posicao+1)->ItemFat * (inf.espaco+(vet+posicao)->ItemTam);
+            long double f = (long double) soma - (vet+posicao)->ItemPri + (vet+posicao+1)->ItemFat * (inf.espaco+(vet+posicao)->ItemTam);
             int limitante = ceil((double)f);
 
             if(limitante > soma){
@@ -182,7 +187,6 @@ int main(){
 
     free(vet);
     free(Better);
-
 
     return 0;
 }

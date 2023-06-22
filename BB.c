@@ -5,7 +5,7 @@
 #include <time.h>
 
 #define MAX_CAP 500
-#define NUM_ELE 1000
+#define NUM_ELE 100
 
 struct Itens{
     int ItemTam;
@@ -25,7 +25,6 @@ void IniciaVetor(struct Itens * vet){
         fscanf(arq,"%d",&(vet+i)->ItemTam);
         fscanf(arq,"%d",&(vet+i)->ItemPri);
         (vet+i)->ItemQuant = 0;
-        (vet+i)->ItemFat =(long double) (vet+i)->ItemPri/(vet+i)->ItemTam;
     }
     fclose(arq);
 }
@@ -35,6 +34,11 @@ void Escreve(struct Itens * vet){
         if((vet+i)->ItemQuant>0)
             printf("tam.%d   pre.%d   fat.%Lf   qtd.%d\n",(vet+i)->ItemTam,(vet+i)->ItemPri, (vet+i)->ItemFat, (vet+i)->ItemQuant);
     }
+}
+
+void CalculaFator(struct Itens * vet){
+    for(int i=0;i<NUM_ELE;i++)
+        (vet+i)->ItemFat =(long double) (vet+i)->ItemPri/(vet+i)->ItemTam;
 }
 
 void OrdenaFator(struct Itens * vet){
@@ -89,24 +93,23 @@ void Podar(struct Itens * vet, int posicao, int * espaco){
 
 
 int main(){
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
 
     struct dados inf;
     inf.espaco = MAX_CAP;
 
     struct Itens * vet = malloc(NUM_ELE * sizeof(struct Itens));
-
     struct Itens * Better = malloc(NUM_ELE * sizeof (struct Itens));
     if(vet==NULL || Better==NULL){
         printf("deu erro na alocacao");
         exit(1);
     }
+
     IniciaVetor(vet);
 
-    struct timeval start, end;
-    gettimeofday(&start, NULL);
-
     OrdenaFator(vet);
-
+    CalculaFator(vet);
     EncherMochila(vet,&inf.espaco,0);
     CopyToBetter(vet,Better);
     SomaPrioridade(vet, &inf.melhorsolucao);
@@ -161,7 +164,7 @@ int main(){
     printf("tempo: %f segundos\n", tempo);
 
     FILE *arq = fopen("BB.txt", "w");
-    fprintf(arq,"%f\n",tempo);
+    fprintf(arq,"%lf\n",tempo);
     fclose(arq);
 
     free(Better);
